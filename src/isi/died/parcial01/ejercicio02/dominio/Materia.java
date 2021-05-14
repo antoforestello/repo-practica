@@ -80,4 +80,8 @@ public class Materia {
 	public void addCorrelativaCursada(Materia m) {
 		this.correlativasCursada.add(m);
 	}
+	
+	public Boolean equals(Materia m) {
+		return this.id==m.getId();
+	}
 }

@@ -2,6 +2,9 @@ package isi.died.parcial01.ejercicio02.dominio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import isi.died.parcial01.ejercicio02.dominio.Inscripcion.Estado;
 
 public class Alumno {
 	
@@ -44,9 +47,36 @@ public class Alumno {
 		e.setAlumno(this);
 	}
 	
-	public void addCursada(Inscripcion e) {
+	public void addCursada(Inscripcion e) throws YaEstaInscriptoException {
+		if(this.estaInscripto(e.getMateria())) {
+			throw new YaEstaInscriptoException(this, e.getMateria());
+		}
 		this.materiasCursadas.add(e);
 		e.setInscripto(this);
 	}
-
+	public Boolean estaInscripto(Materia m) {
+		for(Inscripcion i: this.materiasCursadas) {
+			if(i.getMateria()==m && i.getEstado()!= Estado.LIBRE) return true;
+		}
+		return false;
+	}
+	
+	public void promocionar(Materia m) {
+		Optional<Inscripcion> algo=this.materiasCursadas
+						.stream()
+						.filter(i -> i.getMateria().equals(m)) //inscripciones de esa materia
+						.sorted((o1,o2) -> o2.getCicloLectivo()-o1.getCicloLectivo())
+						.findFirst();
+		if(algo.isPresent()) {
+			algo.get().promocionar();
+		}
+	
+	}
+	
+	
+	public Integer cantidadAplazos() {
+		return (int)this.examenes.stream()
+					.filter(e -> e.getNota()<6)
+					.count();
+	}
 }

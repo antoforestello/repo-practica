@@ -3,13 +3,15 @@ package isi.died.parcial01.ejercicio02.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import isi.died.parcial01.ejercicio02.db.MyBaseDeDatosException;
 import isi.died.parcial01.ejercicio02.dominio.Alumno;
 import isi.died.parcial01.ejercicio02.dominio.Docente;
 import isi.died.parcial01.ejercicio02.dominio.Materia;
+import isi.died.parcial01.ejercicio02.dominio.YaEstaInscriptoException;
 
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws MyBaseDeDatosException, YaEstaInscriptoException {
 		
 		MySysAcad sistema = new MySysAcadImpl();
 		

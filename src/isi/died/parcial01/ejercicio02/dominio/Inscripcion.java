@@ -72,5 +72,8 @@ public class Inscripcion {
 		this.estado = estado;
 	}
 	
+	public void promocionar() {
+		this.setEstado(Estado.PROMOCIONADO);
+	}
 	
 }
